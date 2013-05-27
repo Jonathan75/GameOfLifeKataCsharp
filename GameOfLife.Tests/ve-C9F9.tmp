@@ -1,0 +1,76 @@
+﻿using System;
+using NUnit.Framework;
+
+namespace GameOfLife.Tests
+{
+    [TestFixture]
+    public class GridTests
+    {
+        //Grid grid;
+        Game game;
+
+        [SetUp]
+        public void Setup()
+        {
+            //grid = new Grid();
+            game = new Game();
+        }
+
+        //[Test]
+        //public void empty_cells_in_new_grid_dont_cause_exceptions()
+        //{
+        //    Assert.DoesNotThrow(new TestDelegate(TryToStickNullInCell));
+        //}
+        //[Test]
+        //public void cells_in_new_grid_must_be_able_to_be_empty() 
+        //{
+        //    grid.Cells[1, 1] = null;
+        //    Cell cell = grid.Cells[1, 1];
+        //    Assert.IsNull(cell);
+        //}
+
+        //void TryToStickNullInCell()
+        //{
+        //    grid.Cells[1, 1] = null;
+        //}
+
+
+        [Test]
+        public void cell_can_be_alive()
+        {
+            game.grid.cells[0, 0] = true;
+            Assert.IsTrue(game.grid.cells[0,0]);
+        }
+        [Test]
+        public void cell_can_be_dead()
+        {
+            game.grid.cells[0, 0] = false;
+            Assert.IsFalse(game.grid.cells[0, 0]);
+        }
+        [Test]
+        public void new_game_will_contain_a_new_grid()
+        {   
+            Assert.IsNotNull(game.grid);
+        }
+
+        [Test]
+        public void grid_should_get_the_neighbors_of_a_cell()
+        {
+            int NeighborCount = game.grid.GetCellNeighborCount(1,1);
+            Assert.GreaterOrEqual(NeighborCount,0);
+            
+        }
+
+        [Test]
+        public void cell_with_less_then_2_neighbors_should_die()
+        {
+            int NeighborCount = game.grid.GetCellNeighborCount(1, 1);
+
+            Assert.IsFalse(game.grid.cells[1, 1], "Should die");            
+
+        }
+
+
+
+    }
+}
